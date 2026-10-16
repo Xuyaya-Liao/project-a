@@ -7,6 +7,13 @@ CCLaboratories Biodiversity Atlas
 
 body {
     background-color: #040043;
+
+    background-image: url("./E-Colony-Mycelium.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+
     color: rgb(255, 255, 255);
     font-family: 'Courier New', Courier, monospace;
     font-size: 1em;
