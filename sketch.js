@@ -52,7 +52,7 @@ function draw() {
   pop();
 
   if (mouseIsPressed && radius == 0) {
-    radiusSpeed = 0.1;
+    radiusSpeed = 0.15;
     seedPoints.push({
       x: mouseX,
       y: mouseY,
