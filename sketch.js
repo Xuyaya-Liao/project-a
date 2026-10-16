@@ -13,6 +13,7 @@ let radiusSpeed = 0;
 let startPointX, startPointY;
 let a;
 let backGroundPoints = [];
+let sound1;
 
 //拖拽相关变量：
 let isSelecting = false;
@@ -32,11 +33,12 @@ let growB = 0;
 let growStartFrame;
 let microscopeChanged = false;
 
-function setup() {
+async function setup() {
   createCanvas(800, 500);
   for (let i = 0; i < 200; i++) {
     backGroundPoints.push({ x: random(0, width), y: random(0, height) });
   }
+  sound1 = await loadSound("853900__alexzavesa__water-drop-tap-4.wav");
 }
 
 function draw() {
@@ -206,11 +208,11 @@ function draw() {
     push();
     //保持的rect外观
     for (let i of microscopeRegions) {
-      strokeWeight(2)
-      stroke(43,149,204,80)
+      strokeWeight(2);
+      stroke(43, 149, 204, 80);
       // stroke(255 - (i[0] / 3) * 1.05, 190, (i[1] / 4) * 1.05, 225);
       // fill(0, 65, 255, 108);
-      fill(255,255,255,70)
+      fill(255, 255, 255, 70);
       rect(i[0], i[1], i[2], i[3]);
     }
     pop();
@@ -274,7 +276,7 @@ function mousePressed() {
     for (let p of seedPoints) {
       let d = dist(mouseX, mouseY, p.x, p.y);
 
-      if (d <= p.radius / 2) {
+      if (d <= p.radius / 2 &&dist(x,y,mouseX,mouseY)<1) {
         let pMouse;
         r = 200;
         g = 0;
@@ -292,6 +294,8 @@ function mousePressed() {
 
         p.deforming = true;
         p.deformStart = frameCount;
+
+        sound1.play();
       }
     }
   }
@@ -362,19 +366,19 @@ function grow(x, y, angle, depth, startTime) {
   framesPerBranch = microscopeRegions[0][2] / 19 + microscopeRegions[0][3] / 19;
   let randomColor = random(0, 1);
   // if (randomColor > 0.4) {
-    // growColor = [
-    //   230 + depth * random(1, 8),
-    //   45 + depth * random(10, 30),
-    //   depth * random(2, 15),
-    //   255 - depth * random(10,12),
-    // ];
+  // growColor = [
+  //   230 + depth * random(1, 8),
+  //   45 + depth * random(10, 30),
+  //   depth * random(2, 15),
+  //   255 - depth * random(10,12),
+  // ];
   // } else {
-    growColor = [
-      0 + depth * random(12, 40),
-      150 + depth * random(4, 35),
-      200 + depth * random(2, 20),
-      255 - depth * random(12,18),
-    ]
+  growColor = [
+    0 + depth * random(12, 40),
+    150 + depth * random(4, 35),
+    200 + depth * random(2, 20),
+    255 - depth * random(12, 18),
+  ];
   // }
   // growR+=random(3,15)*depth
   // growG+=random(3,15)*depth
